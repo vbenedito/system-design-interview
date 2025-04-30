@@ -1,9 +1,24 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@tailwind utilities;
 
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
+  --color-custom-primary: var(--color-custom-primary);
+  --color-custom-primary-foreground: var(--color-custom-primary-foreground);
+  --color-custom-primary-opacity: var(--color--custom-primary-opacity);
+  --color-brand-50: var(--color-brand-50);
+  --color-brand-100: var(--color-brand-100);
+  --color-brand-200: var(--color-brand-200);
+  --color-brand-300: var(--color-brand-300);
+  --color-brand-400: var(--color-brand-400);
+  --color-brand-500: var(--color-brand-500);
+  --color-brand-600: var(--color-brand-600);
+  --color-brand-700: var(--color-brand-700);
+  --color-brand-800: var(--color-brand-800);
+  --color-brand-900: var(--color-brand-900);
+  --color-brand-950: var(--color-brand-950);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
@@ -44,6 +59,9 @@
 }
 
 :root {
+  --color-custom-primary: oklch(0.55 0.22 262.88);
+  --color-custom-primary-foreground: oklch(0.55 0.22 262.88 / 0.9);
+  --color-custom-primary-opacity: oklch(0.55 0.22 262.88 / 0.2);
   --radius: 0.625rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.141 0.005 285.823);
@@ -76,6 +94,17 @@
   --sidebar-accent-foreground: oklch(0.21 0.006 285.885);
   --sidebar-border: oklch(0.92 0.004 286.32);
   --sidebar-ring: oklch(0.705 0.015 286.067);
+  --color-brand-50: oklch(0.97 0.02 270.15);
+  --color-brand-100: oklch(0.92 0.04 271.04);
+  --color-brand-200: oklch(0.84 0.08 273.53);
+  --color-brand-300: oklch(0.75 0.13 272.28);
+  --color-brand-400: oklch(0.68 0.16 271.05);
+  --color-brand-500: oklch(0.6 0.2 273.46);
+  --color-brand-600: oklch(0.51 0.23 272.81);
+  --color-brand-700: oklch(0.45 0.22 272.3);
+  --color-brand-800: oklch(0.4 0.18 272.9);
+  --color-brand-900: oklch(0.36 0.13 274.44);
+  --color-brand-950: oklch(0.26 0.08 274.54);
 }
 
 .dark {
