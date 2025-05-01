@@ -9,7 +9,7 @@ export const DifficultyFilter = ({
   selectedDifficulty,
   onSelectDifficulty,
 }: DifficultyFilterProps) => {
-  const difficulties = ["Beginner", "Intermediate", "Advanced"];
+  const difficulties = ["EASY", "MEDIUM", "HARD"];
 
   return (
     <div className="flex gap-2">
