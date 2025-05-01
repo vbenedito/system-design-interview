@@ -60,7 +60,7 @@ export default function HowItWorks() {
         <div className="mt-16 text-center">
           <Button
             size="lg"
-            className="text-base px-6 bg-brand-500 hover:bg-brand-400 hover:cursor-pointer"
+            className="text-base px-6 bg-brand-500 hover:bg-brand-400"
           >
             Try it now
           </Button>

@@ -18,7 +18,7 @@ export default function Hero() {
             <div className="mt-8 flex flex-col sm:flex-row gap-4">
               <Button
                 size="lg"
-                className="text-base px-6 bg-brand-500 hover:bg-brand-400 hover:cursor-pointer"
+                className="text-base px-6 bg-brand-500 hover:bg-brand-400"
               >
                 Start practicing for free
                 <ArrowRight size={18} className="ml-2" />

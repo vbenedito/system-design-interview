@@ -36,7 +36,7 @@ const LoginForm = () => {
           <div className="space-y-4">
             <Button
               variant="outline"
-              className="w-full flex items-center justify-center gap-2 bg-brand-500 hover:bg-brand-600 hover:text-white hover:cursor-pointer"
+              className="w-full flex items-center justify-center gap-2 bg-brand-500 hover:bg-brand-600 hover:text-white"
               onClick={() => handleSignIn("google")}
             >
               <Mail className="h-5 w-5" />
@@ -45,7 +45,7 @@ const LoginForm = () => {
 
             <Button
               variant="outline"
-              className="w-full flex items-center justify-center gap-2 bg-brand-500 hover:bg-brand-600 hover:text-white hover:cursor-pointer"
+              className="w-full flex items-center justify-center gap-2 bg-brand-500 hover:bg-brand-600 hover:text-white"
               onClick={() => handleSignIn("gitHub")}
             >
               <Github className="h-5 w-5" />

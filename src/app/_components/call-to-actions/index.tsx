@@ -45,7 +45,7 @@ export default function CallToAction() {
               <div className="mt-6 space-y-4">
                 <Button
                   size="lg"
-                  className="w-full text-base bg-brand-500 hover:bg-brand-400 hover:cursor-pointer"
+                  className="w-full text-base bg-brand-500 hover:bg-brand-400"
                 >
                   Sign up for free
                   <ArrowRight size={18} className="ml-2" />
