@@ -2,10 +2,12 @@
 import { useState } from "react";
 import { ChallengeCard } from "../challenge-card";
 import { DifficultyFilter } from "../difficulty-filter";
+import { useRouter } from "next/navigation";
 
 interface Challenge {
   id: string;
   title: string;
+  url: string;
   description: string;
   difficulty: "EASY" | "MEDIUM" | "HARD";
 }
@@ -15,6 +17,7 @@ interface ChallengeGridProps {
 }
 
 export const ChallengeGrid = ({ challenges }: ChallengeGridProps) => {
+  const router = useRouter();
   const [selectedDifficulty, setSelectedDifficulty] = useState<string | null>(
     null
   );
@@ -25,8 +28,8 @@ export const ChallengeGrid = ({ challenges }: ChallengeGridProps) => {
     return matchesDifficulty;
   });
 
-  const handleStartChallenge = (challengeId: string) => {
-    console.log(`Starting challenge: ${challengeId}`);
+  const handleStartChallenge = (challengeUrl: string) => {
+    router.push(`/whiteboard/${challengeUrl}`);
   };
 
   return (
@@ -45,7 +48,7 @@ export const ChallengeGrid = ({ challenges }: ChallengeGridProps) => {
             title={challenge.title}
             description={challenge.description}
             difficulty={challenge.difficulty}
-            onStart={() => handleStartChallenge(challenge.id)}
+            onStart={() => handleStartChallenge(challenge.url)}
           />
         ))}
       </div>
