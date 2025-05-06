@@ -1,4 +1,3 @@
-import { Timer } from "../_components/timer";
 import { ElementsSidebar } from "../_components/sidebar";
 import { Whiteboard } from "../_components/whiteboard";
 import {
