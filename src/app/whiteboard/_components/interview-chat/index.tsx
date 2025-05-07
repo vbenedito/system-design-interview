@@ -22,15 +22,19 @@ export type Message = {
 export type ChatInterfaceProps = {
   messages: Message[];
   input: string;
+  loading: boolean;
   onInputChange: (value: string) => void;
-  onSend: () => void;
+  onSendMessage: () => void;
+  onSendImage: () => void;
 };
 
 export const ChatInterface = ({
   messages,
   input,
   onInputChange,
-  onSend,
+  onSendMessage,
+  onSendImage,
+  loading,
 }: ChatInterfaceProps) => {
   return (
     <div className="h-full flex flex-col bg-background">
@@ -50,7 +54,7 @@ export const ChatInterface = ({
 
       <div className="p-4 border-t">
         <form className="flex gap-2" onSubmit={(e) => e.preventDefault()}>
-          <Button type="submit" size="icon">
+          <Button type="submit" size="icon" onClick={onSendImage}>
             <Camera className="h-4 w-4" />
           </Button>
           <Input
@@ -62,8 +66,8 @@ export const ChatInterface = ({
           <Button
             type="submit"
             size="icon"
-            onClick={onSend}
-            disabled={!input.trim()}
+            onClick={onSendMessage}
+            disabled={!input.trim() || loading}
           >
             <Send className="h-4 w-4" />
           </Button>
