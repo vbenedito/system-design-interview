@@ -87,7 +87,7 @@ model Challenge {
   id          String   @id @default(cuid())
   title       String
   description String
-  url         String @default("https://example.com")
+  slug         String @default("https://example.com")
   difficulty  DifficultyLevel @default(MEDIUM)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt

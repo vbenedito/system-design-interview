@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 interface Challenge {
   id: string;
   title: string;
-  url: string;
+  slug: string;
   description: string;
   difficulty: "EASY" | "MEDIUM" | "HARD";
 }
@@ -48,7 +48,7 @@ export const ChallengeGrid = ({ challenges }: ChallengeGridProps) => {
             title={challenge.title}
             description={challenge.description}
             difficulty={challenge.difficulty}
-            onStart={() => handleStartChallenge(challenge.url)}
+            onStart={() => handleStartChallenge(challenge.slug)}
           />
         ))}
       </div>
