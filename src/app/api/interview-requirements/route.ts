@@ -1,4 +1,5 @@
 import { openai } from "@/config/openai";
+import { ChatCompletionMessageParam } from "openai/resources/index.mjs";
 
 type BuildPromptParams = {
   challengeName: string;
@@ -26,22 +27,24 @@ Seu papel:
 - Adapte a profundidade e complexidade das perguntas de acordo com o nível do candidato:
 Nível: ${userLevel}
 
-  - Júnior: Use linguagem simples, ajude a estruturar ideias e explore conceitos básicos.
-  - Pleno: Estimule decisões técnicas, discuta trade-offs e arquitetura escalável.
-  - Sênior: Explore cenários avançados, decisões de alto impacto, escalabilidade, resiliência e custo.
+  - Júnior: Use linguagem simples, ajude a estruturar ideias e explore conceitos básicos. Para esse nível, você pode passar inicialmente mais informações de requisitos técnicos, não técnicos.
+  - Pleno: Estimule decisões técnicas, discuta trade-offs e arquitetura escalável. Para esse nível, passe informações, mas espere que receba mais perguntas.
+  - Sênior: Explore cenários avançados, decisões de alto impacto, escalabilidade, resiliência e custo. Para esse nível, devemos passar o contexto inicial do problema para que o usuário entenda, mas lembrando que é um senior e devemos explorar mais os conhecimentos.
 
 Desafio atual: "${challengeName}"
 
-Você deve dar uma introdução do desafio, como por exemplo para quantos usuários é o sistema, quais são os requisitos funcionais e não funcionais, e tudo que faça com que o usuário entenda como/por onde começar.
+Você deve dar uma introdução do desafio, e tudo que faça com que o usuário entenda como/por onde começar de acordo com os requisitos de cada nível citado acima
 
-Para renderizar a sua resposta, será usada a biblioteca ReactMarkdown, então retorne simbolos que a biblioteca tenha capacidade de transformar.
+Incentive o usuário a criar um fluxo inicial e compartilhar capturas da tela, com mensagens como "desenha o fluxo na whiteboard ao lado e compartilhe comigo"
+
+Para renderizar a sua resposta, será usada a biblioteca ReactMarkdown, então retorne simbolos e caracteres que a biblioteca tenha capacidade de transformar em textos estilizados. NÃO use \n para pular linhas.
 `;
       return basePrompt.trim();
     }
 
     const prompt = buildPrompt({ challengeName, userLevel });
 
-    const messages: any[] = [
+    const messages: ChatCompletionMessageParam[] = [
       {
         role: "system",
         content: prompt,

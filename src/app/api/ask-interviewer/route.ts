@@ -1,4 +1,5 @@
 import { openai } from "@/config/openai";
+import { ChatCompletionMessageParam } from "openai/resources/index.mjs";
 
 type BuildPromptParams = {
   challengeName: string;
@@ -40,8 +41,6 @@ Nível: ${userLevel}
 
 Desafio atual: "${challengeName}"
 
-Responda sem usar quebras de linha (\n) ou qualquer tipo de formatação como asteriscos (*), sublinhados (_) ou símbolos semelhantes. Use apenas texto plano, sem negrito, itálico ou listas.
-
 Mensagens anteriores do candidato:
 ${userMessages.map((msg, i) => `(${i + 1}) ${msg}`).join("\n")}
 
@@ -50,6 +49,10 @@ ${
     ? `O usuário também forneceu uma imagem com arquitetura/desenho. ${imageDescriptionPrompt}`
     : ""
 }
+
+Se o usuário tiver enviado mais de 3 mensagens de texto para você e não tiver enviado nenhuma captura da tela dele, você deve pedir uma captura para entender como está o fluxo desenhado por ele.
+
+Para renderizar a sua resposta, será usada a biblioteca ReactMarkdown, então retorne simbolos e caracteres que a biblioteca tenha capacidade de transformar em textos estilizados. NÃO use \n para pular linhas.
 `;
 
       return basePrompt.trim();
@@ -59,25 +62,16 @@ ${
       challengeName: "Design url shortner",
       userLevel,
       userMessages: [message],
-      //   imageDescriptionPrompt: imageBuffer
-      //     ? "Leve em consideração o que está representado na imagem ao avaliar a resposta."
-      //     : undefined,
     });
 
-    const messages: any[] = [
+    const messages: ChatCompletionMessageParam[] = [
       {
         role: "system",
-        content:
-          "Você é um recrutador técnico experiente, especializado em entrevistas de System Design. Seu papel é conduzir simulações realistas de entrevistas com candidatos de diferentes níveis (Júnior, Pleno ou Sênior), com base em um desafio que será apresentado.",
-      },
-      {
-        role: "system",
-        content:
-          "Siga estas diretrizes:\n\n- Mantenha um tom profissional, receptivo e incentive o raciocínio em voz alta.\n- Foco total no desafio proposto — evite tangentes.\n- Estimule o progresso com perguntas construtivas e sugestões para dividir o problema em partes menores.\n- Nunca forneça a solução completa ou pronta.\n- Responda dúvidas com clareza, reforçando conceitos, mas sem resolver o problema pelo candidato.\n- Adapte seu nível de profundidade conforme o nível do candidato:\n  - Júnior: Use linguagem simples, ajude a estruturar as ideias e explore fundamentos.\n  - Pleno: Estimule decisões técnicas, discuta trade-offs, boas práticas e arquitetura escalável.\n  - Sênior: Explore decisões de alto impacto, pontos de falha, escalabilidade, resiliência, custos e escolhas técnicas complexas.\n- Durante a simulação, aja como um entrevistador real e siga com perguntas, feedback e sondagens progressivas conforme o candidato responde.\n- Mantenha a entrevista fluindo de forma natural e interativa.",
+        content: prompt,
       },
       {
         role: "user",
-        content: [...(message ? [{ type: "text", text: message }] : [])],
+        content: message,
       },
     ];
 
