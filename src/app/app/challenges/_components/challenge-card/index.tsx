@@ -41,7 +41,10 @@ export const ChallengeCard = ({
         <p className="text-gray-600">{description}</p>
       </CardContent>
       <CardFooter>
-        <Button onClick={onStart} className="w-full">
+        <Button
+          onClick={onStart}
+          className="w-full bg-custom-primary hover:bg-custom-primary-foreground"
+        >
           Start Challenge
         </Button>
       </CardFooter>
