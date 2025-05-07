@@ -4,12 +4,8 @@ import {
   DashboardPageHeaderTitle,
   DashboardPageMain,
 } from "@/components/dashboard/page";
-import {
-  DashboardSidebarNav,
-  DashboardSidebarNavMain,
-  DashboardSidebarNavLink,
-} from "@/components/dashboard/sidebar";
 import { PropsWithChildren } from "react";
+import { SettingsSidebar } from "./_components/settings-sidebar";
 
 export default function Layout({ children }: PropsWithChildren) {
   return (
@@ -18,19 +14,8 @@ export default function Layout({ children }: PropsWithChildren) {
         <DashboardPageHeaderTitle>Configurações</DashboardPageHeaderTitle>
       </DashboardPageHeader>
       <DashboardPageMain>
-        <div className="grid grid-cols-[16rem_1fr]">
-          <aside>
-            <DashboardSidebarNav>
-              <DashboardSidebarNavMain>
-                <DashboardSidebarNavLink href="/app/settings">
-                  My Profile
-                </DashboardSidebarNavLink>
-                <DashboardSidebarNavLink href="/app/settings/billing">
-                  Billing
-                </DashboardSidebarNavLink>
-              </DashboardSidebarNavMain>
-            </DashboardSidebarNav>
-          </aside>
+        <div className="grid grid-cols-[16rem_1fr] gap-12">
+          <SettingsSidebar />
           <div>{children}</div>
         </div>
       </DashboardPageMain>
