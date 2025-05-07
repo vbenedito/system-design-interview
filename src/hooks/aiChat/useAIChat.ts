@@ -1,40 +1,33 @@
-import { sendMessageToApi } from "@/usecases/ai-chat/api/sendMessage";
+import {
+  sendMessageToApi,
+  SendQuestionParams,
+} from "@/usecases/ai-chat/api/sendMessage";
 import {
   Message,
   MESSAGE_FROM,
 } from "@/app/whiteboard/_components/interview-chat";
-import html2canvas from "html2canvas";
 import { useState } from "react";
 
-const useAIChat = (initialMessage: Message) => {
+const useAIChat = ({
+  initialMessage,
+  challengeName,
+}: {
+  initialMessage: Message;
+  challengeName: string;
+  userLevel: SendQuestionParams["userLevel"];
+}) => {
   const [messages, setMessages] = useState<Message[]>([initialMessage]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handleSend = async (userLevel: "junior" | "pleno" | "senior") => {
-    const element = document.getElementById("challenge-page");
-
-    // let imageBlob: Blob | undefined;
-
-    // if (element) {
-    //   const canvas = await html2canvas(element, {
-    //     backgroundColor: null,
-    //     useCORS: true,
-    //   });
-
-    //   imageBlob =
-    //     (await new Promise<Blob | null>((resolve) =>
-    //       canvas.toBlob((blob) => resolve(blob), "image/png")
-    //     )) || undefined;
-    // }
-
+  const handleSendMessage = async (
+    userLevel: "junior" | "pleno" | "senior"
+  ) => {
     const newMessage: Message = {
       id: crypto.randomUUID(),
       text: input,
       from: MESSAGE_FROM.USER,
     };
-
-    console.log({ newMessage });
 
     setMessages((prev) => [...prev, newMessage]);
     setLoading(true);
@@ -43,9 +36,8 @@ const useAIChat = (initialMessage: Message) => {
     try {
       const response = await sendMessageToApi({
         message: input,
-        challengeName: "upload de video youtube",
+        challengeName: challengeName,
         userLevel,
-        // image: imageBlob,
       });
 
       const formattedText = response.replaceAll("\n\n", "\n");
@@ -69,7 +61,9 @@ const useAIChat = (initialMessage: Message) => {
     loading,
     input,
     setInput,
-    handleSend,
+    handleSendMessage,
+    setMessages,
+    setLoading,
   };
 };
 
