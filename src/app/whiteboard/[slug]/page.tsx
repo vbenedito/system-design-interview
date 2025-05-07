@@ -9,36 +9,45 @@ import { ChatContainer } from "../_components/interview-chat/chat-container";
 import { initialInterviewerMessage } from "@/usecases/interview-requirements/initialAIMessage";
 import { Message } from "../_components/interview-chat";
 import { unstable_cache } from "next/cache";
+import { Button } from "@/components/ui/button";
+import { getChallengeBySlug } from "../actions";
+import { redirect } from "next/navigation";
 
 export default async function Page({
   params,
 }: {
-  params: Promise<{ id: string }>;
+  params: Promise<{ slug: string }>;
 }) {
-  const { id } = await params;
+  const { slug } = await params;
 
-  const clearId = id.replaceAll("-", " ");
+  const challengeName = slug.replaceAll("-", " ");
+
+  const challenge = await getChallengeBySlug(slug);
+
+  if (!challenge?.length) {
+    redirect("/app/challenges");
+  }
 
   const getProduct = unstable_cache(
     async () => {
       const initialMessage = await initialInterviewerMessage({
-        challengeName: id,
+        challengeName,
         userLevel: "junior", // TODO: change to use from auth infos
       });
 
       return initialMessage;
     },
-    ["junior", clearId],
+    ["junior", challengeName],
     {
-      tags: ["junior", clearId],
-      revalidate: 60 * 5,
+      tags: ["junior", challengeName],
+      revalidate: 60 * 10,
     }
   );
 
   const initialMessage = await getProduct();
 
   const formattedInitialMessage: Message = {
-    challengeName: clearId,
+    challengeName: challengeName,
     id: crypto.randomUUID(),
     text: initialMessage,
     from: "interviewer" as Message["from"],
@@ -46,10 +55,12 @@ export default async function Page({
 
   return (
     <div className="h-screen w-full bg-background flex flex-col">
-      {/* <div className="h-14 border-b flex items-center px-4 justify-between">
-        <h1 className="text-lg font-semibold">{clearId}</h1>
-        <Timer initialMinutes={45} />
-      </div> */}
+      <div className="h-14 border-b flex items-center px-4 justify-between">
+        <h1 className="text-lg font-semibold">{challengeName}</h1>
+        <Button type="submit" className="bg-custom-primary">
+          Finalizar teste
+        </Button>
+      </div>
 
       <div className="flex-1 flex overflow-hidden">
         <ResizablePanelGroup direction="horizontal">
@@ -73,7 +84,11 @@ export default async function Page({
               <ResizableHandle withHandle />
 
               <ResizablePanel defaultSize={25} minSize={0} maxSize={40}>
-                <ChatContainer initialMessage={formattedInitialMessage} />
+                <ChatContainer
+                  initialMessage={formattedInitialMessage}
+                  challengeName={challengeName}
+                  userLevel="junior"
+                />
               </ResizablePanel>
             </ResizablePanelGroup>
           </ResizablePanel>
