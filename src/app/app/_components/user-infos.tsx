@@ -64,8 +64,11 @@ export function UserInfos({ user }: Props) {
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={() => signOut()} className="cursor-pointer">
-          <LogOut className="w-3 h-3 mr-3" />
+        <DropdownMenuItem
+          onClick={() => signOut()}
+          className="cursor-pointer text-red-600"
+        >
+          <LogOut className="w-3 h-3 mr-3 text-red-600" />
           Log out
         </DropdownMenuItem>
       </DropdownMenuContent>
