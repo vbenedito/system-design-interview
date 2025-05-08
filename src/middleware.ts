@@ -8,7 +8,7 @@ export function middleware(request: NextRequest) {
   const whiteboardRegex = /^\/whiteboard\/[^/]+$/;
 
   if (pathname === "/auth" && token) {
-    return NextResponse.redirect(new URL(getUrl("/app")));
+    return NextResponse.redirect(new URL(getUrl("/app/challenges")));
   }
 
   if (pathname.includes("/whiteboard") && !whiteboardRegex.test(pathname)) {
