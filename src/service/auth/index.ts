@@ -12,7 +12,7 @@ export const {
     signOut: "/auth",
     error: "/auth",
     verifyRequest: "/auth",
-    newUser: "/app",
+    newUser: "/onboarding",
   },
   adapter: PrismaAdapter(prisma),
   providers: [
