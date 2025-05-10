@@ -1,10 +1,11 @@
 import { openai } from "@/config/openai";
+import { UserProps } from "@/types/User";
 import { ChatCompletionMessageParam } from "openai/resources/index.mjs";
 
 type BuildPromptParams = {
   challengeName: string;
   userMessages: string[];
-  userLevel: "Júnior" | "Pleno" | "Sênior";
+  userLevel: UserProps["seniorityLevel"];
   imageDescriptionPrompt?: string;
 };
 

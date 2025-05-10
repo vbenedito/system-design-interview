@@ -3,14 +3,7 @@ import { useState } from "react";
 import { ChallengeCard } from "../challenge-card";
 import { DifficultyFilter } from "../difficulty-filter";
 import { useRouter } from "next/navigation";
-
-interface Challenge {
-  id: string;
-  title: string;
-  slug: string;
-  description: string;
-  difficulty: "EASY" | "MEDIUM" | "HARD";
-}
+import { Challenge } from "@/types/Challenge";
 
 interface ChallengeGridProps {
   challenges: Challenge[];

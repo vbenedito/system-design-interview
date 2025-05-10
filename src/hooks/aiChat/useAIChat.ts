@@ -1,12 +1,10 @@
-import {
-  sendMessageToApi,
-  SendQuestionParams,
-} from "@/usecases/ai-chat/api/sendMessage";
+import { sendMessageToApi } from "@/usecases/ai-chat/api/sendMessage";
 import {
   Message,
   MESSAGE_FROM,
 } from "@/app/whiteboard/_components/interview-chat";
 import { useState } from "react";
+import { UserProps } from "@/types/User";
 
 const useAIChat = ({
   initialMessage,
@@ -14,15 +12,13 @@ const useAIChat = ({
 }: {
   initialMessage: Message;
   challengeName: string;
-  userLevel: SendQuestionParams["userLevel"];
+  userLevel: UserProps["seniorityLevel"];
 }) => {
   const [messages, setMessages] = useState<Message[]>([initialMessage]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handleSendMessage = async (
-    userLevel: "junior" | "pleno" | "senior"
-  ) => {
+  const handleSendMessage = async (userLevel: UserProps["seniorityLevel"]) => {
     const newMessage: Message = {
       id: crypto.randomUUID(),
       text: input,

@@ -7,8 +7,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
-import { OnboardingInfos } from "@/app/onboarding/page";
 import { Dispatch, SetStateAction } from "react";
+import { OnboardingInfos } from "@/types/Onboarding";
 
 type StudyHistoryStepProps = {
   howMuchTimeStudySystemDesign: OnboardingInfos["howMuchTimeStudySystemDesign"];

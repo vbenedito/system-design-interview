@@ -1,10 +1,9 @@
-// ChatContainer.tsx
 "use client";
 
-import { SendQuestionParams } from "@/usecases/ai-chat/api/sendMessage";
 import { ChatInterface, Message } from ".";
 import useAIChat from "@/hooks/aiChat/useAIChat";
 import { handleSendImage } from "@/lib/handleSendImage";
+import { UserProps } from "@/types/User";
 
 export const ChatContainer = ({
   initialMessage,
@@ -13,7 +12,7 @@ export const ChatContainer = ({
 }: {
   initialMessage: Message;
   challengeName: string;
-  userLevel: SendQuestionParams["userLevel"];
+  userLevel: UserProps["seniorityLevel"];
 }) => {
   const {
     messages,
@@ -35,7 +34,7 @@ export const ChatContainer = ({
       loading={loading}
       input={input}
       onInputChange={setInput}
-      onSendMessage={() => handleSendMessage("senior")}
+      onSendMessage={() => handleSendMessage(userLevel)}
       onSendImage={() =>
         handleSendImage({
           challengeName,

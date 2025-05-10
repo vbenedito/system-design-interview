@@ -1,4 +1,3 @@
-import { OnboardingInfos } from "@/app/onboarding/page";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import {
@@ -8,6 +7,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { OnboardingInfos } from "@/types/Onboarding";
 import { Dispatch, SetStateAction } from "react";
 
 type ProfessionalStepProps = {
@@ -70,17 +70,20 @@ const ProfessionalStep = ({
         <Label htmlFor="seniority">Seniority Level</Label>
         <Select
           onValueChange={(event) =>
-            setOnboardingInfos((prev) => ({ ...prev, seniorityLevel: event }))
+            setOnboardingInfos((prev) => ({
+              ...prev,
+              seniorityLevel: event as OnboardingInfos["seniorityLevel"],
+            }))
           }
         >
           <SelectTrigger>
             <SelectValue placeholder="Select your seniority level" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="junior">Junior</SelectItem>
-            <SelectItem value="mid">Mid-level</SelectItem>
-            <SelectItem value="senior">Senior</SelectItem>
-            <SelectItem value="staff">Staff/Principal</SelectItem>
+            <SelectItem value="JUNIOR">Junior</SelectItem>
+            <SelectItem value="MIDLEVEL">Mid-level</SelectItem>
+            <SelectItem value="SENIOR">Senior</SelectItem>
+            <SelectItem value="STAFF">Staff/Principal</SelectItem>
           </SelectContent>
         </Select>
       </div>

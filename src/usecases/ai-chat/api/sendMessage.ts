@@ -1,9 +1,10 @@
 import { api } from "@/lib/axios";
+import { UserProps } from "@/types/User";
 
 export interface SendQuestionParams {
   message?: string;
   image?: Blob;
-  userLevel?: "junior" | "pleno" | "senior";
+  userLevel?: UserProps["seniorityLevel"];
   challengeName?: string;
 }
 
