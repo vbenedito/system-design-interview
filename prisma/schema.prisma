@@ -10,9 +10,9 @@ generator client {
 
 // Modelos de autenticação NextAuth (seu schema inicial)
 model User {
-  id             String          @id @default(cuid())
+  id             String                                       @id @default(cuid())
   name           String?
-  email          String          @unique
+  email          String                                       @unique
   emailVerified  DateTime?
   image          String?
   accounts       Account[]
@@ -20,8 +20,15 @@ model User {
   Authenticators Authenticator[]
 
   // Novos campos:
-  isPremium      Boolean          @default(false)
-  mockInterviews MockInterview[]
+  isPremium                    Boolean                                               @default(false)
+  mockInterviews               MockInterview[]
+  workInIndustry               String                                                @default("no")
+  yearsExperience              String                                                @default("0-2")
+  seniorityLevel               SeniorityLevel                                        @default(JUNIOR)
+  howMuchTimeStudySystemDesign Int                                                   @default(0)
+  unity                        String                                                @default("days")
+  alreadyVisitedOnboardingPage Boolean                                               @default(false)
+
 
   createdAt      DateTime          @default(now())
   updatedAt      DateTime          @updatedAt
@@ -81,8 +88,6 @@ model Authenticator {
   @@id([userId, credentialID])
 }
 
-// Novos modelos para seu produto 🎯
-
 model Challenge {
   id          String   @id @default(cuid())
   title       String
@@ -110,6 +115,13 @@ model MockInterview {
 
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+}
+
+enum SeniorityLevel {
+  JUNIOR
+  MIDLEVEL
+  SENIOR
+  STAFF
 }
 
 enum InterviewResult {
