@@ -12,6 +12,9 @@ import { unstable_cache } from "next/cache";
 import { Button } from "@/components/ui/button";
 import { getChallengeBySlug } from "../actions";
 import { redirect } from "next/navigation";
+import { getUserById } from "@/app/onboarding/actions";
+import { auth } from "@/service/auth";
+import { UserProps } from "@/types/User";
 
 export default async function Page({
   params,
@@ -19,20 +22,23 @@ export default async function Page({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-
   const challengeName = slug.replaceAll("-", " ");
-
   const challenge = await getChallengeBySlug(slug);
 
-  if (!challenge?.length) {
+  if (!challenge) {
     redirect("/app/challenges");
   }
 
-  const getProduct = unstable_cache(
+  const session = await auth();
+  const user = (await getUserById(session?.user?.id as string)) as UserProps;
+
+  if (!user) redirect("/auth");
+
+  const getInterview = unstable_cache(
     async () => {
       const initialMessage = await initialInterviewerMessage({
         challengeName,
-        userLevel: "junior", // TODO: change to use from auth infos
+        userLevel: user.seniorityLevel,
       });
 
       return initialMessage;
@@ -44,7 +50,7 @@ export default async function Page({
     }
   );
 
-  const initialMessage = await getProduct();
+  const initialMessage = await getInterview();
 
   const formattedInitialMessage: Message = {
     challengeName: challengeName,
@@ -87,7 +93,7 @@ export default async function Page({
                 <ChatContainer
                   initialMessage={formattedInitialMessage}
                   challengeName={challengeName}
-                  userLevel="junior"
+                  userLevel={user.seniorityLevel}
                 />
               </ResizablePanel>
             </ResizablePanelGroup>
