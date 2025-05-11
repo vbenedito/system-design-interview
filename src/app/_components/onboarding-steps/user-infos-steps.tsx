@@ -30,8 +30,6 @@ export function UserInfosSteps(user: UserProps) {
     }
   };
 
-  console.log(userInfos, user);
-
   return (
     <>
       <Card>
