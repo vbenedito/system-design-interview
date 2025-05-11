@@ -7,20 +7,15 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
-import { Dispatch, SetStateAction } from "react";
 import { OnboardingInfos } from "@/types/Onboarding";
+import { StudyHistoryStepProps } from "@/types/User";
 
-type StudyHistoryStepProps = {
-  howMuchTimeStudySystemDesign: OnboardingInfos["howMuchTimeStudySystemDesign"];
-  unity: OnboardingInfos["unity"];
-  setOnboardingInfos: Dispatch<SetStateAction<OnboardingInfos>>;
+type Props = {
+  value: Omit<StudyHistoryStepProps, "setInfos">;
+  setValue: (data: Partial<OnboardingInfos>) => void;
 };
 
-const StudyHistoryStep = ({
-  howMuchTimeStudySystemDesign,
-  unity,
-  setOnboardingInfos,
-}: StudyHistoryStepProps) => {
+const StudyHistoryStep = ({ value, setValue }: Props) => {
   return (
     <div className="space-y-6">
       <div className="space-y-3">
@@ -31,12 +26,11 @@ const StudyHistoryStep = ({
               type="number"
               placeholder="Duration"
               min="0"
-              defaultValue={howMuchTimeStudySystemDesign}
+              defaultValue={value.howMuchTimeStudySystemDesign}
               onChange={(event) =>
-                setOnboardingInfos((prev) => ({
-                  ...prev,
+                setValue({
                   howMuchTimeStudySystemDesign: Number(event.target.value),
-                }))
+                })
               }
               className="w-full"
             />
@@ -44,14 +38,14 @@ const StudyHistoryStep = ({
           <div>
             <Select
               onValueChange={(value) => {
-                setOnboardingInfos((prev) => ({
-                  ...prev,
+                setValue({
                   unity: value,
-                }));
+                });
               }}
+              defaultValue={value.unity}
             >
               <SelectTrigger>
-                <SelectValue placeholder="Select unit" defaultValue={unity} />
+                <SelectValue placeholder="Select unit" defaultValue="months" />
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="days">Days</SelectItem>

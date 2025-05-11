@@ -1,33 +1,24 @@
-"use client";
+import { UserInfosSteps } from "@/app/_components/onboarding-steps/user-infos-steps";
+import { getUserById } from "@/app/onboarding/actions";
+import { auth } from "@/service/auth";
+import { UserProps } from "@/types/User";
+import { redirect } from "next/navigation";
 
-import { Button } from "@/components/ui/button";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+export default async function Page() {
+  const session = await auth();
 
-export default function Page() {
+  const userId = session?.user?.id as string;
+
+  if (!userId) {
+    redirect("/auth");
+  }
+
+  const user = (await getUserById(userId)) as UserProps;
+
   return (
     <div className="flex items-center justify-center dark:from-brand-950/30 dark:via-background dark:to-background">
       <div className="w-full space-y-8 animate-fade-in">
-        <Card>
-          <CardHeader>
-            <CardTitle>Professional Background</CardTitle>
-          </CardHeader>
-          <CardContent>
-            {/* <ProfessionalStep /> */}
-            professionalStep
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader>
-            <CardTitle>Study History</CardTitle>
-          </CardHeader>
-          <CardContent>
-            {/* <StudyHistoryStep /> */}
-            studyHistory
-          </CardContent>
-        </Card>
-
-        <Button className="w-full">Save</Button>
+        <UserInfosSteps {...user} />
       </div>
     </div>
   );

@@ -1,3 +1,5 @@
+"use client";
+
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import {
@@ -8,29 +10,21 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { OnboardingInfos } from "@/types/Onboarding";
-import { Dispatch, SetStateAction } from "react";
+import { ProfessionalStepProps } from "@/types/User";
 
-type ProfessionalStepProps = {
-  workInIndustry: OnboardingInfos["workInIndustry"];
-  yearsExperience: OnboardingInfos["yearsExperience"];
-
-  setOnboardingInfos: Dispatch<SetStateAction<OnboardingInfos>>;
+type Props = {
+  value: Omit<ProfessionalStepProps, "setInfos">;
+  setValue: (data: Partial<OnboardingInfos>) => void;
 };
 
-const ProfessionalStep = ({
-  workInIndustry,
-  yearsExperience,
-  setOnboardingInfos,
-}: ProfessionalStepProps) => {
+export default function ProfessionalStep({ value, setValue }: Props) {
   return (
     <div className="space-y-6">
       <div className="space-y-3">
         <Label>Do you work in the tech industry?</Label>
         <RadioGroup
-          defaultValue={workInIndustry}
-          onValueChange={(value) =>
-            setOnboardingInfos((prev) => ({ ...prev, workInIndustry: value }))
-          }
+          defaultValue={value.workInIndustry}
+          onValueChange={(val) => setValue({ workInIndustry: val })}
           className="flex flex-col space-y-2"
         >
           <div className="flex items-center space-x-2">
@@ -47,15 +41,11 @@ const ProfessionalStep = ({
       <div className="space-y-3">
         <Label htmlFor="experience">Years of Experience / Study</Label>
         <Select
-          onValueChange={(value) =>
-            setOnboardingInfos((prev) => ({ ...prev, yearsExperience: value }))
-          }
+          defaultValue={value.yearsExperience}
+          onValueChange={(val) => setValue({ yearsExperience: val })}
         >
           <SelectTrigger>
-            <SelectValue
-              placeholder="Select years of experience"
-              defaultValue={yearsExperience}
-            />
+            <SelectValue placeholder="Select years of experience" />
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="0-2">0-2 years</SelectItem>
@@ -69,11 +59,11 @@ const ProfessionalStep = ({
       <div className="space-y-3">
         <Label htmlFor="seniority">Seniority Level</Label>
         <Select
-          onValueChange={(event) =>
-            setOnboardingInfos((prev) => ({
-              ...prev,
-              seniorityLevel: event as OnboardingInfos["seniorityLevel"],
-            }))
+          defaultValue={value.seniorityLevel}
+          onValueChange={(val) =>
+            setValue({
+              seniorityLevel: val as OnboardingInfos["seniorityLevel"],
+            })
           }
         >
           <SelectTrigger>
@@ -89,6 +79,4 @@ const ProfessionalStep = ({
       </div>
     </div>
   );
-};
-
-export default ProfessionalStep;
+}
