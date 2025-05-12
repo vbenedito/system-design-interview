@@ -34,6 +34,10 @@ export default function Hero() {
               <div className="absolute -inset-1 bg-gradient-to-r from-brand-600 to-brand-400 rounded-lg blur opacity-20"></div>
               <div className="relative bg-white rounded-lg shadow-lg border border-gray-200/50 overflow-hidden">
                 <Image
+                  width={500}
+                  height={500}
+                  quality={100}
+                  objectFit="cover"
                   src="https://images.unsplash.com/photo-1531297484001-80022131f5a1"
                   alt="System Design Whiteboard"
                   className="w-full h-auto"
