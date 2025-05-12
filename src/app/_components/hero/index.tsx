@@ -39,7 +39,7 @@ export default function Hero() {
                   quality={100}
                   objectFit="cover"
                   src="https://images.unsplash.com/photo-1531297484001-80022131f5a1"
-                  alt="System Design Whiteboard"
+                  alt="Computer image with dark background"
                   className="w-full h-auto"
                 />
               </div>
