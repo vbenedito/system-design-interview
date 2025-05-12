@@ -3,6 +3,7 @@
 import ProfessionalStep from "./professional-step";
 import { OnboardingInfos } from "@/types/Onboarding";
 import { ProfessionalStepProps } from "@/types/User";
+import { SetStateAction } from "react";
 
 export default function ProfessionalStepWrapper({
   workInIndustry,
@@ -16,7 +17,7 @@ export default function ProfessionalStepWrapper({
     seniorityLevel,
   };
 
-  function updateInfos(newData: Partial<OnboardingInfos>) {
+  function updateInfos(newData: SetStateAction<OnboardingInfos>) {
     setInfos((prev) => ({ ...prev, ...newData }));
   }
 

@@ -3,6 +3,7 @@
 import { OnboardingInfos } from "@/types/Onboarding";
 import { StudyHistoryStepProps } from "@/types/User";
 import StudyHistoryStep from "./study-history-step";
+import { SetStateAction } from "react";
 
 export default function StudyHistoryStepWrapper({
   howMuchTimeStudySystemDesign,
@@ -14,7 +15,7 @@ export default function StudyHistoryStepWrapper({
     unity,
   };
 
-  function updateInfos(newData: Partial<OnboardingInfos>) {
+  function updateInfos(newData: SetStateAction<OnboardingInfos>) {
     setInfos((prev) => ({ ...prev, ...newData }));
   }
 

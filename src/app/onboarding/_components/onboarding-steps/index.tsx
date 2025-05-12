@@ -39,6 +39,17 @@ export const OnboardingSteps = () => {
     }
   };
 
+  const professionalStepInfos = {
+    workInIndustry: onboardingInfos.workInIndustry,
+    yearsExperience: onboardingInfos.yearsExperience,
+    seniorityLevel: onboardingInfos.seniorityLevel,
+  };
+
+  const studyHistoryStepInfos = {
+    howMuchTimeStudySystemDesign: onboardingInfos.howMuchTimeStudySystemDesign,
+    unity: onboardingInfos.unity,
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center px-4 py-8 bg-gradient-to-b from-brand-50/30 via-white to-white dark:from-brand-950/30 dark:via-background dark:to-background">
       <div className="w-full max-w-2xl space-y-8 animate-fade-in">
@@ -72,18 +83,14 @@ export const OnboardingSteps = () => {
           <CardContent>
             {currentStep === 1 && (
               <ProfessionalStep
-                workInIndustry={onboardingInfos.workInIndustry}
-                yearsExperience={onboardingInfos.yearsExperience}
-                setOnboardingInfos={setOnboardingInfos}
+                value={professionalStepInfos}
+                setValue={setOnboardingInfos}
               />
             )}
             {currentStep === 2 && (
               <StudyHistoryStep
-                howMuchTimeStudySystemDesign={
-                  onboardingInfos.howMuchTimeStudySystemDesign
-                }
-                setOnboardingInfos={setOnboardingInfos}
-                unity={onboardingInfos.unity}
+                value={studyHistoryStepInfos}
+                setValue={setOnboardingInfos}
               />
             )}
 

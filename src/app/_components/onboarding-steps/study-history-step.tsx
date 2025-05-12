@@ -9,10 +9,11 @@ import {
 import { Input } from "@/components/ui/input";
 import { OnboardingInfos } from "@/types/Onboarding";
 import { StudyHistoryStepProps } from "@/types/User";
+import { Dispatch, SetStateAction } from "react";
 
 type Props = {
   value: Omit<StudyHistoryStepProps, "setInfos">;
-  setValue: (data: Partial<OnboardingInfos>) => void;
+  setValue: Dispatch<SetStateAction<OnboardingInfos>>;
 };
 
 const StudyHistoryStep = ({ value, setValue }: Props) => {
@@ -28,9 +29,10 @@ const StudyHistoryStep = ({ value, setValue }: Props) => {
               min="0"
               defaultValue={value.howMuchTimeStudySystemDesign}
               onChange={(event) =>
-                setValue({
+                setValue((old) => ({
+                  ...old,
                   howMuchTimeStudySystemDesign: Number(event.target.value),
-                })
+                }))
               }
               className="w-full"
             />
@@ -38,9 +40,10 @@ const StudyHistoryStep = ({ value, setValue }: Props) => {
           <div>
             <Select
               onValueChange={(value) => {
-                setValue({
+                setValue((old) => ({
+                  ...old,
                   unity: value,
-                });
+                }));
               }}
               defaultValue={value.unity}
             >

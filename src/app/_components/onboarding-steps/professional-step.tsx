@@ -11,10 +11,11 @@ import {
 } from "@/components/ui/select";
 import { OnboardingInfos } from "@/types/Onboarding";
 import { ProfessionalStepProps } from "@/types/User";
+import { Dispatch, SetStateAction } from "react";
 
 type Props = {
   value: Omit<ProfessionalStepProps, "setInfos">;
-  setValue: (data: Partial<OnboardingInfos>) => void;
+  setValue: Dispatch<SetStateAction<OnboardingInfos>>;
 };
 
 export default function ProfessionalStep({ value, setValue }: Props) {
@@ -24,7 +25,9 @@ export default function ProfessionalStep({ value, setValue }: Props) {
         <Label>Do you work in the tech industry?</Label>
         <RadioGroup
           defaultValue={value.workInIndustry}
-          onValueChange={(val) => setValue({ workInIndustry: val })}
+          onValueChange={(val) =>
+            setValue((old) => ({ ...old, workInIndustry: val }))
+          }
           className="flex flex-col space-y-2"
         >
           <div className="flex items-center space-x-2">
@@ -42,7 +45,9 @@ export default function ProfessionalStep({ value, setValue }: Props) {
         <Label htmlFor="experience">Years of Experience / Study</Label>
         <Select
           defaultValue={value.yearsExperience}
-          onValueChange={(val) => setValue({ yearsExperience: val })}
+          onValueChange={(val) =>
+            setValue((old) => ({ ...old, yearsExperience: val }))
+          }
         >
           <SelectTrigger>
             <SelectValue placeholder="Select years of experience" />
@@ -61,9 +66,10 @@ export default function ProfessionalStep({ value, setValue }: Props) {
         <Select
           defaultValue={value.seniorityLevel}
           onValueChange={(val) =>
-            setValue({
+            setValue((old) => ({
+              ...old,
               seniorityLevel: val as OnboardingInfos["seniorityLevel"],
-            })
+            }))
           }
         >
           <SelectTrigger>
