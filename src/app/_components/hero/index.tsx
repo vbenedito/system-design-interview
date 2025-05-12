@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
+import Image from "next/image";
 
 export default function Hero() {
   return (
@@ -32,7 +33,7 @@ export default function Hero() {
             <div className="relative">
               <div className="absolute -inset-1 bg-gradient-to-r from-brand-600 to-brand-400 rounded-lg blur opacity-20"></div>
               <div className="relative bg-white rounded-lg shadow-lg border border-gray-200/50 overflow-hidden">
-                <img
+                <Image
                   src="https://images.unsplash.com/photo-1531297484001-80022131f5a1"
                   alt="System Design Whiteboard"
                   className="w-full h-auto"
