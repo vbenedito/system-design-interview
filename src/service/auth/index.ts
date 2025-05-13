@@ -17,4 +17,5 @@ export const {
   adapter: PrismaAdapter(prisma),
   providers: [Google],
   basePath: "api/auth",
+  trustHost: true,
 });
