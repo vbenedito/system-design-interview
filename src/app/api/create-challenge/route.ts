@@ -8,8 +8,6 @@ export async function POST(req: NextRequest) {
 
     const { title, description, slug, difficulty } = body;
 
-    console.log({ body });
-
     const novoProduto = await prisma.challenge.create({
       data: {
         title: title,
