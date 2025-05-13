@@ -22,6 +22,6 @@ export const {
     }),
   ],
   secret: process.env.NEXTAUTH_SECRET || "",
-  basePath: "api/auth",
   trustHost: true,
+  debug: true,
 });
