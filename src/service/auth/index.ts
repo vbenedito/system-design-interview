@@ -15,7 +15,13 @@ export const {
     newUser: "/onboarding",
   },
   adapter: PrismaAdapter(prisma),
-  providers: [Google],
+  providers: [
+    Google({
+      clientId: process.env.AUTH_GOOGLE_ID || "",
+      clientSecret: process.env.AUTH_GOOGLE_SECRET || "",
+    }),
+  ],
+  secret: process.env.NEXTAUTH_SECRET || "",
   basePath: "api/auth",
   trustHost: true,
 });
