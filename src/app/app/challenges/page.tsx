@@ -6,9 +6,14 @@ import {
   DashboardPageMain,
 } from "@/components/dashboard/page";
 import { getChallenges } from "./actions";
+import { redirect } from "next/navigation";
 
 const Challenges = async () => {
   const challenges = await getChallenges();
+
+  if (!challenges.length) {
+    redirect("/app/settings");
+  }
 
   return (
     <>
