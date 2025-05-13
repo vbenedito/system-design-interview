@@ -8,7 +8,7 @@ export async function POST(req: NextRequest) {
 
     const { title, description, slug, difficulty } = body;
 
-    const novoProduto = await prisma.challenge.create({
+    const newChallenge = await prisma.challenge.create({
       data: {
         title: title,
         description: description,
@@ -17,7 +17,7 @@ export async function POST(req: NextRequest) {
       },
     });
 
-    return NextResponse.json(novoProduto);
+    return NextResponse.json(newChallenge);
   } catch (error: any) {
     console.error(error);
     return NextResponse.json({ error: error.message }, { status: 500 });
