@@ -12,6 +12,8 @@ export function middleware(request: NextRequest) {
     token = localToken;
   }
 
+  console.log({ token, env: process.env.ENV_TYPE });
+
   const pathname = request.nextUrl.pathname;
 
   const whiteboardRegex = /^\/whiteboard\/[^/]+$/;
